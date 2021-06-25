@@ -18,9 +18,9 @@ struct DetailView: View {
         GeometryReader { geo in
             VStack {
                 ZStack(alignment: .bottomTrailing) {
-                    Image(book.genre ?? "Fantasy")
+                    Image(book.genre ?? "belly3")
                         .frame(maxWidth: geo.size.width)
-                    Text(book.genre?.uppercased() ?? "FANTASY")
+                    Text(book.genre?.uppercased() ?? "Unknown genre")
                         .font(.caption)
                         .fontWeight(.black)
                         .foregroundColor(.white)
@@ -37,6 +37,12 @@ struct DetailView: View {
                 RatingView(rating: .constant(Int(self.book.rating)))
                     .font(.largeTitle)
                 Spacer()
+                HStack {
+                    Spacer()
+                    Text("In library from: \(book.date ?? "\n'cant detect added date'")")
+                        .foregroundColor(.secondary.opacity(0.65))
+                        .padding(.trailing)
+                }
             }
         }
         .navigationBarTitle(Text(book.title ?? "unknown title"), displayMode: .inline)

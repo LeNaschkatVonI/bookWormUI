@@ -27,6 +27,13 @@ struct AddBookView: View {
     
     let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
     
+    var dateFormat: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .none
+        return formatter
+    }
+    
     var body: some View {
         Form {
             Section {
@@ -49,12 +56,14 @@ struct AddBookView: View {
             Section {
                 Button("save") {
                     let book = Book(context: moc)
+                    let time = dateFormat.string(from: Date())
                     book.id = UUID()
                     book.author = author
                     book.title = title
                     book.rating = Int16(rating)
                     book.review = review
                     book.genre = genre
+                    book.date = time
                     
                     try? moc.save()
                     presentationMode.wrappedValue.dismiss()
